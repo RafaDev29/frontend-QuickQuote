@@ -1,0 +1,111 @@
+<template>
+  <div class="fill-height">
+  <v-container >
+    <v-row align="center" justify="center">
+      <v-col cols="12" md="6" class="d-flex justify-center pb-15 mb-15 pr-15">
+        <v-card class="rounded-xl">
+          <v-card-title class="text-center">
+            <img :src="LogoImage" alt="Logo" class="logo-image">
+          </v-card-title>
+          <div>
+            <div class="w-full flex justify-center"></div>
+            <h1 class="text-2xl pb-2 color-blue-600 text-center">Bienvenido a Commonbox</h1>
+            <p class="text-xs pb-2 text-gray-500 text-center mt-2 pr-10 pl-10">
+              Ingresa las credenciales otorgadas por tu proveedor
+            </p>
+          </div>
+          <v-card-text>
+            <v-form @submit.prevent="validateLogin">
+              <div class="text-subtitle-1 text-medium-emphasis">Usuario</div>
+              <v-text-field
+                v-model="username"
+                density="compact"
+                placeholder="Usuario"
+                prepend-inner-icon="mdi-account-outline"
+                variant="outlined"
+              ></v-text-field>
+              <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
+                Contraseña
+              </div>
+              <v-text-field
+                v-model="password"
+                :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
+                :type="showPassword ? 'text' : 'password'"
+                density="compact"
+                placeholder="Contraseña"
+                prepend-inner-icon="mdi-lock-outline"
+                variant="outlined"
+                @click:append-inner="togglePasswordVisibility"
+              ></v-text-field>
+              <v-btn type="submit" color="primary" class="mt-4 rounded-xl" block>Ingresar</v-btn>
+            </v-form>
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col cols="12" md="6" class="d-none d-md-flex align-center justify-center pl-16">
+        <img :src="LoginImage" alt="Login Image" class="login-image">
+      </v-col>
+    </v-row>
+  </v-container>
+</div>
+</template>
+
+<script>
+import { ref } from 'vue'
+import loginImage from '@/assets/login/login.png'; 
+import logoImage from '@/assets/login/logo_sysnet.png';
+
+export default {
+  data() {
+    return {
+     
+      LoginImage: loginImage,
+      LogoImage: logoImage
+    };
+  },
+  emits: ['validate-login'],
+  setup(_, { emit }) {
+    const username = ref('');
+    const password = ref('');
+    const showPassword = ref(false);
+
+    const validateLogin = () => {
+      const data = {
+        username: username.value,
+        password: password.value
+      };
+      emit('validate-login', data);
+    };
+
+    const togglePasswordVisibility = () => {
+      showPassword.value = !showPassword.value;
+    };
+
+    return {
+      username,
+      password,
+      validateLogin,
+      togglePasswordVisibility,
+      showPassword
+    };
+  }
+};
+</script>
+
+<style scoped>
+.fill-height {
+  height: 100vh;
+  width: auto;
+  position: center;
+
+  background-color: rgb(230, 237, 247);
+}
+
+.logo-image {
+  width: 80px;
+  height: 80px;
+  margin-left: 40%;
+}
+
+
+</style>
