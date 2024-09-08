@@ -8,7 +8,7 @@
                         <div class="p-1 pt-4 flex items-center justify-center">
                             <img :src="logoEdriver" class="w-[6rem] bg-gray-100 rounded-md" />
                         </div>
-                        <p v-if="!rail" class="font-bold text-2xl text-center w-full">CommonBox</p>
+                        <p v-if="!rail" class="font-bold text-2xl text-center w-full">cotizador</p>
                     </div>
                 </div>
                 <v-list>
@@ -116,10 +116,10 @@
       
         const ItemsNavegation = ref([
         {
-                icon: "mdi mdi-home-edit",
-                title: "Inicio",
-                value: "home",
-                to: "/home",
+                icon: "mdi mdi-text-box-plus-outline",
+                title: "Cotizaciones",
+                value: "cotizaciones",
+                to: "/cotizaciones",
                 children: []
             },
 
@@ -153,21 +153,19 @@
         });
 
         const rols = computed(() => {
-    if (store.state.role === 'SUPER_MASTER') {
-        return 'Root';
-    }else if (store.state.role === 'MASTER') {
-        return 'Master'
-    }else if (store.state.role === 'COMPANY') {
-        return 'Compañia'
+    if (store.state.role === 'administrador') {
+        return 'Administrador';
+    }else if (store.state.role === 'vendedor') {
+        return 'vendedor'
     }
     return ''; 
 });
   
         const filteredItems = computed(() => {
-            if (store.state.role === 'SUPER_MASTER') {
-                return ItemsNavegation.value.filter(item => item.value === 'master');
-            } else if (store.state.role === 'COMPANY') {
-                return ItemsNavegation.value.filter(item =>  item.value === 'rVehicle'  );
+            if (store.state.role === 'administrador') {
+                return ItemsNavegation.value.filter(item => item.value === 'cotizaciones');
+            } else if (store.state.role === 'vendedor') {
+                return ItemsNavegation.value.filter(item =>  item.value === 'cotizaciones'  );
             } else {
                 return [];
             }
