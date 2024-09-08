@@ -17,3 +17,13 @@ export function listProducto( token ) {
         }
     })
 }
+
+
+export function createProducto( token, payload ) {
+
+    return axiosInstance.post(`${baseURL}/producto/crear`,payload,{
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+}

@@ -123,7 +123,28 @@
                 children: []
             },
 
+            {
+                icon: "mdi mdi-basket-plus",
+                title: "Productos",
+                value: "producto",
+                to: "/producto",
+                children: []
+            },
 
+            {
+                icon: "mdi mdi-account-details-outline",
+                title: "Clientes",
+                value: "clientes",
+                to: "/clientes",
+                children: []
+            },
+
+
+
+
+
+
+          
 
       
       
@@ -163,7 +184,7 @@
   
         const filteredItems = computed(() => {
             if (store.state.role === 'administrador') {
-                return ItemsNavegation.value.filter(item => item.value === 'cotizaciones');
+                return ItemsNavegation.value.filter(item => item.value === 'cotizaciones' || item.value ==='producto' || item.value==='clientes');
             } else if (store.state.role === 'vendedor') {
                 return ItemsNavegation.value.filter(item =>  item.value === 'cotizaciones'  );
             } else {

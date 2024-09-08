@@ -17,3 +17,13 @@ export function listCliente( token ) {
         }
     })
 }
+
+
+export function createCliente( token, payload ) {
+
+    return axiosInstance.post(`${baseURL}/cliente/crear`,payload,{
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+}
